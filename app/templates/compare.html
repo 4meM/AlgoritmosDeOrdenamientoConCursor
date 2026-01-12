@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Comparar Algoritmos - Gestor de Algoritmos{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">Comparar Algoritmos</h1>
+        <p class="lead">Compara el rendimiento de múltiples algoritmos con los mismos datos.</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Seleccionar Algoritmos</h5>
+            </div>
+            <div class="card-body">
+                <div id="algorithmCheckboxes"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Datos de Entrada</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Generar datos:</label>
+                    <div class="btn-group w-100 mb-2" role="group">
+                        <button type="button" class="btn btn-outline-primary" onclick="generateCompareData('random')">Aleatorio</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="generateCompareData('sorted')">Ordenado</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="generateCompareData('reverse')">Inverso</button>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="compareDataSize" value="100" min="1" max="10000">
+                        <button class="btn btn-primary" onclick="generateCompareData('random')">Generar</button>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="compareDataInput" class="form-label">O ingrese datos manualmente:</label>
+                    <textarea class="form-control" id="compareDataInput" rows="5" placeholder='[1, 5, 3, 2, 4]'></textarea>
+                </div>
+                
+                <div class="mb-3" id="compareTargetContainer" style="display: none;">
+                    <label for="compareTargetInput" class="form-label">Elemento a buscar:</label>
+                    <input type="number" class="form-control" id="compareTargetInput" placeholder="Ingrese el valor a buscar">
+                </div>
+                
+                <button class="btn btn-success w-100" onclick="compareAlgorithms()">Comparar Algoritmos</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card" id="compareResultsCard" style="display: none;">
+            <div class="card-header">
+                <h5>Resultados de la Comparación</h5>
+            </div>
+            <div class="card-body">
+                <div id="compareResultsContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Comparación de Tiempo</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="timeChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Comparación de Memoria</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="memoryChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/compare.js') }}"></script>
+{% endblock %}

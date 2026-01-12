@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Gestor de Algoritmos{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">Gestor de Algoritmos</h1>
+        <p class="lead">Ejecuta y compara algoritmos de ordenamiento y búsqueda con métricas de rendimiento.</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Seleccionar Algoritmo</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="algorithmSelect" class="form-label">Algoritmo:</label>
+                    <select class="form-select" id="algorithmSelect">
+                        <option value="">Seleccione un algoritmo...</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3" id="targetInputContainer" style="display: none;">
+                    <label for="targetInput" class="form-label">Elemento a buscar:</label>
+                    <input type="number" class="form-control" id="targetInput" placeholder="Ingrese el valor a buscar">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Datos de Entrada</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Opciones:</label>
+                    <div class="btn-group w-100 mb-2" role="group">
+                        <button type="button" class="btn btn-outline-primary" onclick="generateData('random')">Aleatorio</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="generateData('sorted')">Ordenado</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="generateData('reverse')">Inverso</button>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="dataSize" value="100" min="1" max="10000" placeholder="Tamaño">
+                        <button class="btn btn-primary" onclick="generateData('random')">Generar</button>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="dataInput" class="form-label">O ingrese datos manualmente (JSON array):</label>
+                    <textarea class="form-control" id="dataInput" rows="5" placeholder='[1, 5, 3, 2, 4]'></textarea>
+                </div>
+                
+                <button class="btn btn-success w-100" onclick="runAlgorithm()">Ejecutar Algoritmo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card" id="resultsCard" style="display: none;">
+            <div class="card-header">
+                <h5>Resultados</h5>
+            </div>
+            <div class="card-body">
+                <div id="resultsContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Métricas de Rendimiento</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="metricsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
